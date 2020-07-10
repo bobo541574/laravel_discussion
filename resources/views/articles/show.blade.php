@@ -94,7 +94,7 @@
             </div>
             <div class="card-footer">
                 <a href="javascript:void(0)"
-                    class="btn btn-sm btn-light {{ $article->likeCheck ? 'text-primary' : '' }} like"
+                    class="btn btn-sm btn-light {{ $article->likeCheck ? 'text-primary' : '' }} like mr-1"
                     id="like_{{ $article->id }}" onclick="like({{ $article->id }})" data-placement="top" title="like"
                     data-toggle="tooltip">
                     <i class="fa fa-thumbs-up">
@@ -102,11 +102,11 @@
                     </i>
                 </a>
                 <a href="javascript:void(0)"
-                    class="btn btn-sm btn-light {{ $article->unlikeCheck ? 'text-danger' : '' }} unlike"
-                    id="unlike_{{ $article->id }}" data-placement="top" title="unlike" data-toggle="tooltip"
-                    onclick="unlike({{ $article->id }})">
+                    class="btn btn-sm btn-light {{ $article->dislikeCheck ? 'text-danger' : '' }} dislike"
+                    id="dislike_{{ $article->id }}" data-placement="top" title="dislike" data-toggle="tooltip"
+                    onclick="dislike({{ $article->id }})">
                     <i class="fa fa-thumbs-down">
-                        <sup>{{ ($article->unlikeCount) }}</sup>
+                        <sup>{{ ($article->dislikeCount) }}</sup>
                     </i>
                 </a>
             </div>
@@ -128,24 +128,22 @@
             @foreach ($article->comments as $comment)
             <li class="list-group-item {{ $comment->commentCheck ? "bg-comment" : "" }}">
                 <div id="content-{{ $comment->id }}" class="">
-                    {{ $comment->body }}
-                    @php
-                    if (strlen($comment->content) > 130 == "true") {
-                    echo '... <a href="javascript:void(0)" class="card-link">Read More</a>';
-                    }
-                    @endphp
+                    <span>{{ $comment->body }}</span>
+                    @if (strlen($comment->content) > 130 == "true")
+                        <a href="javascript:void(0)" class="card-link" id="body_{{ $comment->id }}" onclick="readMore({{$comment}})"> ...Read More</a>
+                    @endif
                     <div class="small">
                         By <b>{{ $comment->user->name }}</b>,
                         {{ $comment->created_at->diffForHumans() }}
                     </div>
                     <div class="row py-2 px-3">
                         @if (!null)
-                        <a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-sm btn-light text-info reply"
+                        <a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-sm btn-light text-info reply mr-1"
                             data-toggle="tooltip" data-placement="top" title="reply">
                             <i class="fa fa-reply"></i>
                         </a>
                         <a href="javascript:void(0)"
-                            class="btn btn-sm btn-light {{ $comment->likeCheck ? 'text-primary' : '' }} like-comment"
+                            class="btn btn-sm btn-light {{ $comment->likeCheck ? 'text-primary' : '' }} like-comment mr-1"
                             id="like-comment_{{ $comment->id }}" onclick="likeComment({{ $comment->id }})" data-placement="top"
                             title="like" data-toggle="tooltip">
                             <i class="fa fa-thumbs-up">
@@ -153,7 +151,7 @@
                             </i>
                         </a>
                         <a href="javascript:void(0)"
-                            class="btn btn-sm btn-light {{ $comment->unlikeCheck ? 'text-danger' : '' }} unlike-comment"
+                            class="btn btn-sm btn-light {{ $comment->unlikeCheck ? 'text-danger' : '' }} dislike-comment mr-1"
                             id="unlike_{{ $comment->id }}" data-placement="top" title="unlike" data-toggle="tooltip"
                             onclick="unlikeComment({{ $comment->id }})">
                             <i class="fa fa-thumbs-down">
@@ -163,7 +161,7 @@
                         @endif
                         @if (Auth::check())
                         @if (auth()->user()->id == $comment->user_id )
-                        <a href="javascript:void(0)" class="btn btn-sm btn-secondary mr-2"
+                        <a href="javascript:void(0)" class="btn btn-sm btn-secondary mr-1"
                             id="comment-{{ $comment->id }}" data-toggle="tooltip" data-placement="top" title="edit"
                             onclick="edit({{ $comment }})">
                             <i class="fa fa-edit"></i>
@@ -195,10 +193,11 @@
 <script>
     function readMore(comment) {
         let id = comment.id;
-        let content = comment.body;
+        let content = comment.content;
         let read_more = "";
         read_more += `${content}`;
-        $(".card #read_more_" + id).html(read_more);
+        $("#content-" + id + " span").html(read_more);
+        $("#content-" + id + " #body_" + id).remove('a');
     }
 
     var update_comment = '';

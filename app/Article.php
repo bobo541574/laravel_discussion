@@ -27,9 +27,4 @@ class Article extends Model
     {
         return $this->morphMany('App\Like', 'likeable');
     }
-
-    public function unlikes()
-    {
-        return $this->morphMany('App\Unlike', 'unlikeable');
-    }
 }
