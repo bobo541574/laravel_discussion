@@ -27,7 +27,7 @@
 /* Extra Smallest devices (landscape phones, 544px and up) */
 @media (min-width: 120px) {
 
-    .close {
+    .test {
         line-height: 1em;
     }
 
@@ -71,7 +71,7 @@
 
 /* Extra Smallest devices (landscape phones, 544px and up) */
 @media (min-width: 300px) {
-    .close {
+    .test {
         line-height: 1em;
     }
 
@@ -115,7 +115,7 @@
 /* Small devices (landscape phones, 544px and up) */
 @media (min-width: 544px) {
 
-    .close {
+    .test {
         line-height: 1.5em;
     }
 
@@ -159,7 +159,7 @@
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
 @media (min-width: 768px) {
 
-    .close {
+    .test {
         line-height: 1.4em;
     }
 
@@ -202,7 +202,7 @@
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .close {
+    .test {
         line-height: 1.6em;
     }
 
@@ -245,7 +245,7 @@
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-    .close {
+    .test {
         line-height: 1.9em;
     }
 

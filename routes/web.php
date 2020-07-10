@@ -21,12 +21,19 @@ Route::get('/', 'ArticleController@index');
 
 Route::resource('/articles', 'ArticleController');
 
-Route::post('/like', 'LikeController@like')->name('likes'); //->middleware('auth');
+Route::post('/like', 'LikeController@like')->name('likes');
 
-Route::post('/like-comment', 'LikeController@likeComment')->name('likes-comment'); //->middleware('auth');
+Route::post('/like-comment', 'LikeController@likeComment')->name('likes-comment');
 
-Route::post('/dislike', 'LikeController@dislike')->name('dislikes'); //->middleware('auth');
+Route::post('/dislike', 'LikeController@dislike')->name('dislikes');
 
 Route::resource('/comments', 'CommentController');
 
 Route::get('/timeline/{user}/articles', 'UserController@index')->name('articles.timeline');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profiles/{user}', 'UserController@profile')->name('users.profile');
+
+    Route::get('/profiles/{user}/edit', 'UserController@edit')->name('users.profile-edit');
+    Route::put('/profiles/{user}', 'UserController@update')->name('users.profile-update');
+});
