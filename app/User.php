@@ -40,9 +40,9 @@ class User extends Authenticatable
     ];
 
 
-    public function getPhotoAttribute($value)
+    public function getphotoAttribute($value)
     {
-        return asset($value);
+        return asset('storage/' . $value);
     }
 
     public function timeline()

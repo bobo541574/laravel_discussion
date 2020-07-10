@@ -5,7 +5,7 @@
         <div class="row card-title mb-0">
             <div class="col">
                 <a href="{{ route('articles.timeline', $article->user->id) }}" class="card-link">
-                    <img src="{{ asset($article->user->photo) }}" class="profile mr-3" alt="user_img">
+                    <img src="{{ asset($article->user->photo) }}" class="profile mr-3 rounded-circle" width="50px" height="50px" alt="user_img">
                     <b class="heading">{{ $article->user->name }}</b>
                 </a>
             </div>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Category;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -28,7 +27,9 @@ class UserController extends Controller
     public function update(User $user)
     {
         $validator = validator(request()->all(), [
-            'name'  => 'required',
+            'name'  => 'required|string|max:255',
+            'photo' => 'image',
+            'password'  => 'required|string|min:8|max:255|confirmed',
         ]);
 
         if ($validator->fails()) {
