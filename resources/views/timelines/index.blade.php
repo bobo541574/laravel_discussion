@@ -3,25 +3,21 @@
 @section('content')
 
 <div class="container-fluid">
-    {{-- <div class="card pt-0">
-        <div class="card-image">
-            <img src="{{ asset('covers/cover.jpg') }}" width="100%" height="450px" alt="cover-img">
-        </div>
-    </div> --}}
     <div class="row justify-content-center my-1">
         <div class="col-md-3">
             @include('layouts.left')
         </div>
-        <div class="col-md-6">
+        <div class="col-md-7">
             @foreach ($articles as $article)
             <div class="card shadow-lg mb-2" id="card_{{ $article->id }}">
                 <div class="card-body pt-2">
                     <div id="flash_{{ $article->id }}"></div>
-                    <a href="{{ route('articles.timeline', $article->user->id) }}" class="card-link">
-                        <img src="{{ asset($article->user->photo) }}" class="mr-3 rounded-circle" width="7%" alt="user_img">
-                        <b style="font-size: 130%">{{ $article->user->name }}</b>
-                    </a>
-                    <a href="" class="card-link close"><strong class="h5 font-weight-bold">&times;</strong></a>
+                        <a href="{{ route('articles.timeline', $article->user->id) }}" class="card-link">
+                            <img src="{{ asset($article->user->photo) }}" class="mr-3 rounded-circle" width="7%" alt="user_img">
+                            <b style="font-size: 130%">{{ $article->user->name }}</b>
+                        </a>
+                        <a href="" class="card-link close"><strong class="h5 font-weight-bold">&times;</strong></a>
+
                     <hr class="mt-1 mb-2">
                     <h4 class="card-title mr-auto">{{ $article->title }}</h4>
 
@@ -73,7 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             @include('layouts.right')
         </div>
     </div>

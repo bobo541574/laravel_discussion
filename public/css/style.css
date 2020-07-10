@@ -1,4 +1,4 @@
-.like,
+/* .like,
 .dislike,
 .comment {
     font-size: 105%;
@@ -13,7 +13,7 @@
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     background-color: white;
-}
+} */
 
 .bg-comment {
     background: rgb(235, 232, 232);
@@ -26,9 +26,40 @@
 
 /* Extra Smallest devices (landscape phones, 544px and up) */
 @media (min-width: 120px) {
+
+    .close {
+        line-height: 1em;
+    }
+
+    .like,
+    .dislike,
+    .comment {
+        font-size: 90%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    .reply,
+    .like-comment,
+    .dislike-comment {
+        font-size: 70%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        background-color: white;
+    }
+
+    .profile {
+        width: 13%;
+    }
+
+    .heading {
+        font-size: 110%;
+    }
+
     h4 {
         font-size: 0.70rem;
     }
+
 
     /*1rem = 16px*/
     p {
@@ -40,8 +71,37 @@
 
 /* Extra Smallest devices (landscape phones, 544px and up) */
 @media (min-width: 300px) {
+    .close {
+        line-height: 1em;
+    }
+
+    .like,
+    .dislike,
+    .comment {
+        font-size: 90%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    .reply,
+    .like-comment,
+    .dislike-comment {
+        font-size: 70%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        background-color: white;
+    }
+
+    .profile {
+        width: 12%;
+    }
+
+    .heading {
+        font-size: 110%;
+    }
+
     h4 {
-        font-size: 1rem;
+        font-size: 1.05rem;
     }
 
     /*1rem = 16px*/
@@ -54,6 +114,36 @@
 
 /* Small devices (landscape phones, 544px and up) */
 @media (min-width: 544px) {
+
+    .close {
+        line-height: 1.5em;
+    }
+
+    .like,
+    .dislike,
+    .comment {
+        font-size: 95%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    .reply,
+    .like-comment,
+    .dislike-comment {
+        font-size: 80%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        background-color: white;
+    }
+
+    .profile {
+        width: 11%;
+    }
+
+    .heading {
+        font-size: 110%;
+    }
+
     h4 {
         font-size: 1.20rem;
     }
@@ -68,6 +158,36 @@
 
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
 @media (min-width: 768px) {
+
+    .close {
+        line-height: 1.4em;
+    }
+
+    .like,
+    .dislike,
+    .comment {
+        font-size: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    .reply,
+    .like-comment,
+    .dislike-comment {
+        font-size: 85%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        background-color: white;
+    }
+
+    .profile {
+        width: 10%;
+    }
+
+    .heading {
+        font-size: 120%;
+    }
+
     h4 {
         font-size: 1.30rem;
     }
@@ -82,6 +202,35 @@
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+    .close {
+        line-height: 1.6em;
+    }
+
+    .like,
+    .dislike,
+    .comment {
+        font-size: 105%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    .reply,
+    .like-comment,
+    .dislike-comment {
+        font-size: 75%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        background-color: white;
+    }
+
+    .profile {
+        width: 9%;
+    }
+
+    .heading {
+        font-size: 120%;
+    }
+
     h4 {
         font-size: 1.40rem;
     }
@@ -96,6 +245,35 @@
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+    .close {
+        line-height: 1.9em;
+    }
+
+    .like,
+    .dislike,
+    .comment {
+        font-size: 105%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    .reply,
+    .like-comment,
+    .dislike-comment {
+        font-size: 80%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        background-color: white;
+    }
+
+    .profile {
+        width: 8%;
+    }
+
+    .heading {
+        font-size: 120%;
+    }
+
     h4 {
         font-size: 1.50rem;
     }

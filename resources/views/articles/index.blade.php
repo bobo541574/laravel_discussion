@@ -10,11 +10,11 @@
         <div class="col-md-7">
             @foreach ($articles as $article)
                 <div class="card shadow-lg mb-2" id="card_{{ $article->id }}">
-                    <div class="card-body">
+                    <div class="card-body pt-2">
                         <div id="flash_{{ $article->id }}"></div>
                         <a href="{{ route('articles.timeline', $article->user->id) }}" class="card-link">
-                            <img src="{{ asset($article->user->photo) }}" class="mr-3" width="5%" alt="user_img">
-                            <b style="font-size: 130%">{{ $article->user->name }}</b>
+                            <img src="{{ asset($article->user->photo) }}" class="profile mr-3" alt="user_img">
+                            <b class="heading">{{ $article->user->name }}</b>
                         </a>
                         <a href="" class="card-link close"><strong class="h5 font-weight-bold">&times;</strong></a>
                         <hr class="mt-1 mb-2">

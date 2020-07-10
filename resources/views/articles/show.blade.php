@@ -10,7 +10,7 @@
                     <div id="flash_{{ $article->id }}"></div>
                     <div class="row card-title">
                         <div class="col">
-                            <h3 class="card-title">{{ $article->title }}</h3>
+                            <h4 class="card-title">{{ $article->title }}</h4>
                         </div>
                         @auth
                         @if ($article->user_id == auth()->user()->id)
@@ -129,7 +129,7 @@
             <li class="list-group-item {{ $comment->commentCheck ? "bg-comment" : "" }}">
                 <div id="content-{{ $comment->id }}" class="">
                     <span>{{ $comment->body }}</span>
-                    @if (strlen($comment->content) > 130 == "true")
+                    @if (strlen($comment->content) > 240 == "true")
                         <a href="javascript:void(0)" class="card-link" id="body_{{ $comment->id }}" onclick="readMore({{$comment}})"> ...Read More</a>
                     @endif
                     <div class="small">

@@ -17,9 +17,12 @@ class ArticleController extends Controller
     {
         // $client_info = file_get_contents('https://get.geojs.io/v1/dns/ptr.json');
         // dd(json_decode($client_info));
-
-        $articles = Article::latest()->paginate(5);
-
+        if (request()->query()) {
+            $articles = Article::where('category_id', request()->query())->latest()->paginate(5);
+            // dd($articles);
+        } else {
+            $articles = Article::latest()->paginate(5);
+        }
         $categories = Category::all();
 
         return view('articles.index', ['articles' => $articles, 'categories' => $categories]);

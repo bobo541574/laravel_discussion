@@ -29,6 +29,4 @@ Route::post('/dislike', 'LikeController@dislike')->name('dislikes'); //->middlew
 
 Route::resource('/comments', 'CommentController');
 
-Route::get('/category/{category}/articels', 'ArticleController@category')->name('articles.category');
-
 Route::get('/timeline/{user}/articles', 'UserController@index')->name('articles.timeline');
