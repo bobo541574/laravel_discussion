@@ -11,7 +11,7 @@
             <div class="card mb-2 shadow-lg">
                 <div class="card-body">
                     @foreach ($users as $user)
-                    <a href="{{ route('articles.index', $user->id) }}" class="text-decoration-none">
+                    <a href="{{ route('articles.timeline', $user->id) }}" class="text-decoration-none">
                         <h4 class="card-title font-weight-bolder">
                             <img src="{{ $user->photo }}" class="rounded-circle mr-2" width="50px" height="50px" alt="">
                             {{ $user->name }}
