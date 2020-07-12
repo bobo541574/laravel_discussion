@@ -103,6 +103,6 @@
 @endforeach
 <div class="d-flex">
     <div class="mx-auto">
-        {{ $articles->links() }}
+        {{$articles->appends(['category' => request()->query('category')])->links()}}
     </div>
 </div>

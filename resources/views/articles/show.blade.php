@@ -68,31 +68,8 @@
                         Category: <b>{{ $article->category->name }}</b>
                     </div>
                     <p class="card-text">{{ $article->body }}</p>
-                    {{-- <div class="row ml-1">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-light like mr-2" data-placement="top" title="like" data-toggle="tooltip" onclick="rate({{ $article->id }})">
-                    <i class="fa fa-thumbs-up
-                                @auth()
-                                {{ $article->likeCheck ? 'text-primary' : '' }}
-                                @endauth
-                            ">
-                        <sup> <b>{{ ($article->likeCount) }}</b></sup>
-                    </i>
-                    </a>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-light unlike mr-2" data-placement="top"
-                        title="unlike" data-toggle="tooltip" onclick="rate({{ $article->id }})">
-                        <i class="fa fa-thumbs-down
-                                @auth()
-                                @foreach ($article->likes as $like)
-                                    {{ $like->user->id == auth()->user()->id ? 'text-danger' : '' }}
-                                @endforeach
-                                @endauth
-                            ">
-                            <sup>{{ (count($article->likes) > 0 ? count($article->likes) : '') }}</sup>
-                        </i>
-                    </a>
-                </div> --}}
             </div>
-            <div class="card-footer">
+            <div class="card-footer py-1">
                 <a href="javascript:void(0)"
                     class="btn btn-sm btn-light {{ $article->likeCheck ? 'text-primary' : '' }} like mr-1"
                     id="like_{{ $article->id }}" onclick="like({{ $article->id }})" data-placement="top" title="like"
@@ -137,47 +114,41 @@
                         {{ $comment->created_at->diffForHumans() }}
                     </div>
                     <div class="row py-2 px-3">
-                        @if (!null)
                         <a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-sm btn-light text-info reply mr-1"
                             data-toggle="tooltip" data-placement="top" title="reply">
                             <i class="fa fa-reply"></i>
                         </a>
                         <a href="javascript:void(0)"
                             class="btn btn-sm btn-light {{ $comment->likeCheck ? 'text-primary' : '' }} like-comment mr-1"
-                            id="like-comment_{{ $comment->id }}" onclick="likeComment({{ $comment->id }})" data-placement="top"
+                            id="like_comment{{ $comment->id }}" onclick="likeComment ({{ $comment->id }})" data-placement="top"
                             title="like" data-toggle="tooltip">
                             <i class="fa fa-thumbs-up">
                                 <sup>{{ ($comment->likeCount) }}</sup>
                             </i>
                         </a>
                         <a href="javascript:void(0)"
-                            class="btn btn-sm btn-light {{ $comment->unlikeCheck ? 'text-danger' : '' }} dislike-comment mr-1"
-                            id="unlike_{{ $comment->id }}" data-placement="top" title="unlike" data-toggle="tooltip"
-                            onclick="unlikeComment({{ $comment->id }})">
+                            class="btn btn-sm btn-light {{ $comment->dislikeCheck ? 'text-danger' : '' }} dislike-comment mr-1"
+                            id="dislike_comment{{ $comment->id }}" data-placement="top" title="dislike" data-toggle="tooltip"
+                            onclick="dislikeComment({{ $comment->id }})">
                             <i class="fa fa-thumbs-down">
-                                <sup>{{ ($comment->unlikeCount) }}</sup>
+                                <sup>{{ ($comment->dislikeCount) }}</sup>
                             </i>
                         </a>
-                        @endif
-                        @if (Auth::check())
-                        @if (auth()->user()->id == $comment->user_id )
-                        <a href="javascript:void(0)" class="btn btn-sm btn-secondary mr-1"
-                            id="comment-{{ $comment->id }}" data-toggle="tooltip" data-placement="top" title="edit"
-                            onclick="edit({{ $comment }})">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        {{-- <a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-sm btn-secondary mr-2"
-                        data-toggle="tooltip" data-placement="top" title="edit">
-                        <i class="fa fa-edit"></i>
-                        </a> --}}
-                        <form action="{{ route('comments.destroy', $comment->id) }}" method="post">
-                            @csrf
-                            @method("DELETE")
-                            <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-trash"
-                                data-toggle="tooltip" data-placement="top" title="delete"></i></button>
-                        </form>
-                        @endif
-                        @endif
+                        @auth
+                            @if (auth()->user()->id == $comment->user_id )
+                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary mr-1"
+                                    id="comment-{{ $comment->id }}" data-toggle="tooltip" data-placement="top" title="edit"
+                                    onclick="edit({{ $comment }})">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <form action="{{ route('comments.destroy', $comment->id) }}" method="post">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-trash"
+                                        data-toggle="tooltip" data-placement="top" title="delete"></i></button>
+                                </form>
+                            @endif
+                        @endauth
                     </div>
                 </div>
             </li>
@@ -213,7 +184,7 @@
                     @csrf
                     @method("PUT")
                     <textarea name="content" id="content-${id}" class="form-control my-2" placeholder="Comment">${content}</textarea>
-                    <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-cloud-upload"  data-toggle="tooltip" data-placement="top" title="update"></i></button>
+                    <button type="submit" class="btn btn-sm btn-light mr-1"><i class="fa fa-cloud-upload-alt"  data-toggle="tooltip" data-placement="top" title="update"></i></button>
                     <a href="{{ url('articles/${article_id}') }}" class="btn btn-sm btn-secondary mr-2"  data-toggle="tooltip" data-placement="top" title="cancle"><i class="fa fa-times-circle"></i></a>
                 </form>
             `;

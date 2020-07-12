@@ -108,102 +108,135 @@
     </div>
 
     <script src="{{ asset('js/jquery.js') }}"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> --}}
-
-    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> --}}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
         })
-        window.setTimeout(function() {
-            $(".alert").fadeTo(5000, 0).slideUp(5000, function(){
-                $(this).remove(); 
+        window.setTimeout(function () {
+            $(".alert").fadeTo(5000, 0).slideUp(5000, function () {
+                $(this).remove();
             });
         }, 5000);
 
         function like(id) {
-            $.post("{{route('likes')}}", {id:id}, function(response) {
+            $.post("{{route('likes')}}", {
+                id: id
+            }, function (response) {
                 console.log(response);
                 var error = "";
-                if(response == 401)
-                {
+                if (response == 401) {
                     error += `
-                    <div class="alert alert-danger alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>	
-                        <strong>Errors! <hr></strong>	
-                            <strong>You need to login!!!</strong>
-                    </div>
-                    `;
-                    $('#flash_'+id).html(error);
-                }  else if(response.status == 201) {
-                    $('#like_'+id).addClass('text-primary');
-                    $('#dislike_'+id).removeClass('text-danger');
-                    $('#like_'+id +' i sup').html(response.likeCount);
-                    $('#dislike_'+id +' i sup').html(response.dislikeCount);
-                } else if(response.status == 200) {
-                    $('#like_'+id).removeClass('text-primary');
-                    $('#like_'+id +' i sup').html(response.likeCount);
+                            <div class="alert alert-danger alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>	
+                                <strong>Errors! <hr></strong>	
+                                    <strong>You need to login!!!</strong>
+                            </div>
+                            `;
+                    $('#flash_' + id).html(error);
+                } else if (response.status == 201) {
+                    $('#like_' + id).addClass('text-primary');
+                    $('#dislike_' + id).removeClass('text-danger');
+                    $('#like_' + id + ' i sup').html(response.likeCount);
+                    $('#dislike_' + id + ' i sup').html(response.dislikeCount);
+                } else if (response.status == 200) {
+                    $('#like_' + id).removeClass('text-primary');
+                    $('#like_' + id + ' i sup').html(response.likeCount);
                 }
             })
         }
 
         function dislike(id) {
-            $.post("{{route('dislikes')}}", {id:id}, function(response) {
+            $.post("{{route('dislikes')}}", {
+                id: id
+            }, function (response) {
                 console.log(response);
                 var error = "";
-                if(response == 401)
-                {
+                if (response == 401) {
                     error += `
-                    <div class="alert alert-danger alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>	
-                        <strong>Errors! <hr></strong>	
-                            <strong>You need to login!!!</strong>
-                    </div>
-                    `;
-                    $('#flash_'+id).html(error);
-                }  else if(response.status == 201) {
-                    $('#dislike_'+id).addClass('text-danger');
-                    $('#dislike_'+id +' i sup').html(response.dislikeCount);
-                    $('#like_'+id).removeClass('text-primary');
-                    $('#like_'+id +' i sup').html(response.likeCount);
-                } else if(response.status == 200) {
-                    $('#dislike_'+id).removeClass('text-danger');
-                    $('#dislike_'+id +' i sup').html(response.dislikeCount);
+                            <div class="alert alert-danger alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>	
+                                <strong>Errors! <hr></strong>	
+                                    <strong>You need to login!!!</strong>
+                            </div>
+                            `;
+                    $('#flash_' + id).html(error);
+                } else if (response.status == 201) {
+                    $('#dislike_' + id).addClass('text-danger');
+                    $('#dislike_' + id + ' i sup').html(response.dislikeCount);
+                    $('#like_' + id).removeClass('text-primary');
+                    $('#like_' + id + ' i sup').html(response.likeCount);
+                } else if (response.status == 200) {
+                    $('#dislike_' + id).removeClass('text-danger');
+                    $('#dislike_' + id + ' i sup').html(response.dislikeCount);
                 }
             })
         }
 
         function likeComment(id) {
-            $.post("{{route('likes-comment')}}", {id:id}, function(response) {
-                console.log(response);
+            $.post("{{route('likes-comment')}}", {
+                id: id
+            }, function (response) {
                 var error = "";
-                if(response == 401)
-                {
+                if (response == 401) {
                     error += `
-                    <div class="alert alert-danger alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>	
-                        <strong>Errors! <hr></strong>	
-                            <strong>You need to login!!!</strong>
-                    </div>
-                    `;
-                    $('#flash_'+id).html(error);
-                }  else if(response.status == 201) {
-                    $('#like-comment_'+id).addClass('text-primary');
-                    $('#like-comment_'+id +' i sup').html(response.likeCount);
-                } else if(response.status == 200) {
-                    $('#like-comment_'+id).removeClass('text-primary');
-                    $('#like-comment_'+id +' i sup').html(response.likeCount);
+                            <div class="alert alert-danger alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>	
+                                <strong>Errors! <hr></strong>	
+                                    <strong>You need to login!!!</strong>
+                            </div>
+                            `;
+                    $('#flash_' + id).html(error);
+                } else if (response.status == 201) {
+                    $('#like_comment' + id).addClass('text-primary');
+                    $('#dislike_comment' + id).removeClass('text-danger');
+                    $('#like_comment' + id + ' i sup').html(response.likeCount);
+                    $('#dislike_comment' + id + ' i sup').html(response.dislikeCount);
+                } else if (response.status == 200) {
+                    $('#like_comment' + id).removeClass('text-primary');
+                    $('#like_comment' + id + ' i sup').html(response.likeCount);
                 }
             })
         }
 
-    </script> 
+        function dislikeComment(id) {
+            $.post("{{route('dislikes-comment')}}", {
+                id: id
+            }, function (response) {
+                console.log(response);
+                var error = "";
+                if (response == 401) {
+                    error += `
+                            <div class="alert alert-danger alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>	
+                                <strong>Errors! <hr></strong>	
+                                    <strong>You need to login!!!</strong>
+                            </div>
+                            `;
+                    $('#flash_' + id).html(error);
+                } else if (response.status == 201) {
+                    $('#dislike_comment' + id).addClass('text-danger');
+                    $('#dislike_comment' + id + ' i sup').html(response.dislikeCount);
+                    $('#like_comment' + id).removeClass('text-primary');
+                    $('#like_comment' + id + ' i sup').html(response.likeCount);
+                } else if (response.status == 200) {
+                    $('#dislike_comment' + id).removeClass('text-danger');
+                    $('#dislike_comment' + id + ' i sup').html(response.dislikeCount);
+                }
+            })
+        }
+    </script>
+
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> --}}
+
+    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> --}}
+    
 
     @stack('script')
+
     <script src="http://unpkg.com/turbolinks"></script>
     
 </body>

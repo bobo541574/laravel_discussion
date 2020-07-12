@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    use Likeable;
+
     public function getCommentCheckAttribute()
     {
         return Auth::check() ? $this->user_id == auth()->user()->id : '';
@@ -29,5 +31,15 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany('App\Reply');
+    }
+
+    public function likes()
+    {
+        return $this->morphMany('App\Like', 'likeable');
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 trait Likeable
 {
-    /* Start - Article with likes */
+    /* Start - likes */
     public function getlikeCheckAttribute()
     {
         return Auth::check() ? (bool) $this->likes()->where(['user_id' => auth()->user()->id, 'liked' => true])->exists() : null;
@@ -17,19 +17,19 @@ trait Likeable
         return $this->likes()->where('liked', true)->count() > 0 ? $this->likes()->where('liked', true)->count() : '';
     }
 
-    public function likeArticle($user_id, $likeable_id, $liked)
+    public function liker($likeable, $user_id, $liked)
     {
         if ($this->likeCheck) {
-            $dislike = $this->find($likeable_id)
-                ->likes()->where(['likeable_id' => $likeable_id, 'user_id' => $user_id, 'liked' => true])
+            $dislike = $this->find($likeable->id)
+                ->likes()->where(['likeable_id' => $likeable->id, 'user_id' => $user_id, 'liked' => true])
                 ->first();
             $dislike->liked = $liked;
             $dislike->save();
 
             return $dislike;
         } else if ($this->dislikeCheck) {
-            $like = $this->find($likeable_id)
-                ->likes()->where(['likeable_id' => $likeable_id, 'user_id' => $user_id, 'liked' => false])
+            $like = $this->find($likeable->id)
+                ->likes()->where(['likeable_id' => $likeable->id, 'user_id' => $user_id, 'liked' => false])
                 ->first();
             $like->liked = $liked;
             $like->save();
@@ -39,20 +39,17 @@ trait Likeable
 
         $like = new Like();
         $like->user_id = $user_id;
-        $like->likeable_id = $likeable_id;
-        $like->likeable_type = Article::class;
+        $like->likeable_id = $likeable->id;
         $like->liked = $liked;
-        $like->save();
+        $likeable->likes()->save($like);
+        // $like->save();
 
         return $like;
     }
 
+    /* End - likes */
 
-
-
-    /* End - Article with likes */
-
-    /* Start - Article with unlikes */
+    /* Start - unlikes */
     public function getdislikeCheckAttribute()
     {
         return Auth::check() ? (bool) $this->likes()->where(['user_id' => auth()->user()->id, 'liked' => false])->exists() : null;
@@ -62,5 +59,5 @@ trait Likeable
     {
         return $this->likes()->where('liked', false)->count() > 0 ? $this->likes()->where('liked', false)->count() : '';
     }
-    /* End - Article with unlikes */
+    /* End - unlikes */
 }

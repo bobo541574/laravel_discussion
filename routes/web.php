@@ -22,10 +22,11 @@ Route::get('/', 'ArticleController@index');
 Route::resource('/articles', 'ArticleController');
 
 Route::post('/like', 'LikeController@like')->name('likes');
+Route::post('/dislike', 'LikeController@dislike')->name('dislikes');
 
 Route::post('/like-comment', 'LikeController@likeComment')->name('likes-comment');
+Route::post('/dislike-comment', 'LikeController@dislikeComment')->name('dislikes-comment');
 
-Route::post('/dislike', 'LikeController@dislike')->name('dislikes');
 
 Route::resource('/comments', 'CommentController');
 

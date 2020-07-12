@@ -37,18 +37,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             $request->validate([
                 'article_id'    => "required",
                 'content'       => "required"
             ]);
-    
+
             $comment = new Comment();
             $comment->content = $request->content;
             $comment->article_id = $request->article_id;
             $comment->user_id = auth()->user()->id;
             $comment->save();
-    
+
             return back();
         }
         return back()->with('error', "You need to login!!!");
@@ -106,7 +106,7 @@ class CommentController extends Controller
     {
         $comment = Comment::findOrFail($id);
         if (Gate::allows('delete', $comment)) {
-            // $comment->delete();
+            $comment->delete();
             return back()->with("success", "Succefully Deleted!!!");
         };
 

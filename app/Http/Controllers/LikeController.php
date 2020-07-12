@@ -27,45 +27,16 @@ class LikeController extends Controller
             }
             return response()->json([
                 'status' => 201,
-                'data' => $article->likeArticle(auth()->user()->id, (int) request('id'), true),
+                'data' => $article->liker($article, auth()->user()->id, true),
                 'likeCount' => $article->likeCount,
                 'dislikeCount' => $article->dislikeCount,
             ]);
         } else {
             return 401;
         }
-
-        // if (Auth::check()) {
-        //     $article = Article::findOrFail($request->id);
-
-        //     if ($article->likeCheck) {
-        //         $like = Like::where(['likeable_id' => $request->id, 'user_id' => auth()->user()->id])->first();
-
-        //         $like->delete();
-
-        //         return response()->json([
-        //             'status' => 200,
-        //             'data' => $like,
-        //             'likeCount' => $article->likeCount,
-        //         ]);
-        //     }
-
-        //     $like = new Like();
-        //     $like->user_id = auth()->user()->id;
-        //     $like->likeable_id = $request->id;
-        //     $like->liked = true;
-        //     $article->likes()->save($like);
-        //     return response()->json([
-        //         'status' => 201,
-        //         'data' => $like,
-        //         'likeCount' => $article->likeCount,
-        //     ]);
-        // } else {
-        //     return 401;
-        // }
     }
 
-    public function dislike(Article $article)
+    public function dislike()
     {
         if (Auth::check()) {
             $article = Article::find(request('id'));
@@ -82,7 +53,7 @@ class LikeController extends Controller
             }
             return response()->json([
                 'status' => 201,
-                'data' => $article->likeArticle(auth()->user()->id, (int) request('id'), false),
+                'data' => $article->liker($article, auth()->user()->id, false),
                 'dislikeCount' => $article->dislikeCount,
                 'likeCount' => $article->likeCount,
             ]);
@@ -91,34 +62,86 @@ class LikeController extends Controller
         }
     }
 
-    public function likeComment(Request $request)
+    public function likeComment()
     {
         if (Auth::check()) {
-            $comment = Comment::findOrFail($request->id);
+            $comment = Comment::find(request('id'));
 
-            $like_check = Like::where(['likeable_id' => $request->id, 'user_id' => auth()->user()->id])->first();
-
-            if ($like_check) {
-                $like_check->delete();
-
+            if ($comment->likeCheck) {
+                $like = Like::where(['likeable_id' => request('id'), 'user_id' => auth()->user()->id])->first();
+                $like->delete();
                 return response()->json([
                     'status' => 200,
-                    'data' => $like_check,
+                    'data' => $like,
+                    'likeCount' => $comment->likeCount,
+                    'dislikeCount' => $comment->dislikeCount,
+                ]);
+            }
+            return response()->json([
+                'status' => 201,
+                'data' => $comment->liker($comment, auth()->user()->id, true),
+                'likeCount' => $comment->likeCount,
+                'dislikeCount' => $comment->dislikeCount,
+            ]);
+        } else {
+            return 401;
+        }
+    }
+
+    public function dislikeComment()
+    {
+        if (Auth::check()) {
+            $comment = Comment::find(request('id'));
+
+            if ($comment->dislikeCheck) {
+                $like = Like::where(['likeable_id' => request('id'), 'user_id' => auth()->user()->id])->first();
+                $like->delete();
+                return response()->json([
+                    'status' => 200,
+                    'data' => $like,
+                    'dislikeCount' => $comment->dislikeCount,
                     'likeCount' => $comment->likeCount,
                 ]);
             }
-
-            $like = new Like();
-            $like->user_id = auth()->user()->id;
-            $like->likeable_id = $request->id;
-            $comment->likes()->save($like);
             return response()->json([
                 'status' => 201,
-                'data' => $like,
+                'data' => $comment->liker($comment, auth()->user()->id, false),
+                'dislikeCount' => $comment->dislikeCount,
                 'likeCount' => $comment->likeCount,
             ]);
         } else {
             return 401;
         }
     }
+
+    // public function likeComment(Request $request)
+    // {
+    //     if (Auth::check()) {
+    //         $comment = Comment::findOrFail($request->id);
+
+    //         $like_check = Like::where(['likeable_id' => $request->id, 'user_id' => auth()->user()->id])->first();
+
+    //         if ($like_check) {
+    //             $like_check->delete();
+
+    //             return response()->json([
+    //                 'status' => 200,
+    //                 'data' => $like_check,
+    //                 'likeCount' => $comment->likeCount,
+    //             ]);
+    //         }
+
+    //         $like = new Like();
+    //         $like->user_id = auth()->user()->id;
+    //         $like->likeable_id = $request->id;
+    //         $comment->likes()->save($like);
+    //         return response()->json([
+    //             'status' => 201,
+    //             'data' => $like,
+    //             'likeCount' => $comment->likeCount,
+    //         ]);
+    //     } else {
+    //         return 401;
+    //     }
+    // }
 }
