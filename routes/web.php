@@ -27,6 +27,7 @@ Route::post('/dislike', 'LikeController@dislike')->name('dislikes');
 Route::post('/like-comment', 'LikeController@likeComment')->name('likes-comment');
 Route::post('/dislike-comment', 'LikeController@dislikeComment')->name('dislikes-comment');
 
+Route::get('/search', 'SearchController@search')->name('search');
 
 Route::resource('/comments', 'CommentController');
 

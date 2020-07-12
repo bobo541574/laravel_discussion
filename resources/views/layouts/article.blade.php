@@ -5,7 +5,7 @@
         <div class="row card-title mb-0">
             <div class="col">
                 <a href="{{ route('articles.timeline', $article->user->id) }}" class="card-link">
-                    <img src="{{ asset($article->user->photo) }}" class="profile mr-3 rounded-circle" width="50px" height="50px" alt="user_img">
+                    <img src="{{ asset($article->user->photo) }}" class="profile mr-3 rounded-circle" width="50px" height="40px" alt="user_img">
                     <b class="heading">{{ $article->user->name }}</b>
                 </a>
             </div>
@@ -87,12 +87,12 @@
         <a href="{{ route('articles.show', $article->id) }}" class="btn btn-sm btn-light comment" data-placement="top"
             title="comment" data-toggle="tooltip" onclick="comment({{ $article->id }})">
             <i class="fas fa-comment-alt
-                                @auth
-                                    @foreach ($article->comments as $comment)
-                                        {{ $comment->user->id == auth()->user()->id ? 'text-info' : '' }}
-                                    @endforeach
-                                @endauth
-                            ">
+                @auth
+                    @foreach ($article->comments as $comment)
+                        {{ $comment->user->id == auth()->user()->id ? 'text-info' : '' }}
+                    @endforeach
+                @endauth
+            ">
                 <sup>{{ (count($article->comments) ? count($article->comments) : '') }}</sup>
             </i>
         </a>
