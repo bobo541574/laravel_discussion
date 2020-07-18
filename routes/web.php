@@ -38,4 +38,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profiles/{user}/edit', 'UserController@edit')->name('users.profile-edit');
     Route::put('/profiles/{user}', 'UserController@update')->name('users.profile-update');
+
+    Route::post('/replies', 'ReplyController@create')->name('replies.create');
 });

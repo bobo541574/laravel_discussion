@@ -14,7 +14,7 @@
         <ul class="list-group">
             <li class="list-group-item text-center">
                 @auth
-                <a href="{{ route('users.profile', auth()->user()->id) }}" class="card-link">
+                <a href="{{ url('/') }}" class="card-link">
                     <img src="{{ asset(auth()->user()->photo) }}" class="" width="60%" height="" alt="user_img">
                     <p><b class="heading">{{ auth()->user()->name}}</b></p>
                 </a>

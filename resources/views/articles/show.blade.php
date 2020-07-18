@@ -104,7 +104,7 @@
             </li>
             @foreach ($article->comments as $comment)
             <li class="list-group-item {{ $comment->commentCheck ? "bg-comment" : "" }}">
-                <div id="content-{{ $comment->id }}" class="">
+                <div id="content-{{ $comment->id }}">
                     <span>{{ $comment->body }}</span>
                     @if (strlen($comment->content) > 240 == "true")
                         <a href="javascript:void(0)" class="card-link" id="body_{{ $comment->id }}" onclick="readMore({{$comment}})"> ...Read More</a>
@@ -114,7 +114,7 @@
                         {{ $comment->created_at->diffForHumans() }}
                     </div>
                     <div class="row py-2 px-3">
-                        <a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-sm btn-light text-info reply mr-1"
+                        <a href="javascript:void(0)" id="reply_{{ $comment->id }}" onclick="reply({{$comment->id}})" class="btn btn-sm btn-light text-info reply mr-1"
                             data-toggle="tooltip" data-placement="top" title="reply">
                             <i class="fa fa-reply"></i>
                         </a>
@@ -150,6 +150,12 @@
                             @endif
                         @endauth
                     </div>
+                    <ul class="list-group">
+                        @foreach ($comment->replies as $reply)
+                            <p class="m-0">{{$loop->first ? "Replies" : ''}}</p>
+                            <li class="list-group-item" style="font-size: 80%">{{ $reply->content }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             </li>
             @endforeach
@@ -171,9 +177,9 @@
         $("#content-" + id + " #body_" + id).remove('a');
     }
 
-    var update_comment = '';
 
     function edit(comment) {
+        let update_comment = '';
         let id = comment.id;
         let content = comment.content;
         let user_id = comment.user.id;
@@ -191,5 +197,26 @@
         $("#content-" + id).html(update_comment);
     }
 
+    function reply(id) { 
+        let reply = '';
+        $("#to_reply_" + id).remove("div");
+
+        reply += `
+                <div id="to_reply_${id}">
+                    <form action="{{ url('replies') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="comment_id" value="${id}" />
+                        <textarea name="content" class="form-control my-2" placeholder="Reply"></textarea>
+                        <button type="submit" class="btn btn-sm btn-light mr-1"><i class="fa fa-cloud-upload-alt"  data-toggle="tooltip" data-placement="top" title="update"></i></button>
+                        <a href="javascript:void(0)" onclick="no_reply(${id})" class="btn btn-sm btn-secondary mr-2"  data-toggle="tooltip" data-placement="top" title="cancle"><i class="fa fa-times-circle"></i></a>
+                    </form>
+                </div>
+            `;
+        $("#content-" + id).append(reply);
+    }
+
+    function no_reply(id) {
+        $("#to_reply_" + id).remove("div");
+    }
 </script>
 @endpush
