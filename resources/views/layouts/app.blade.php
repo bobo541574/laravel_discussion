@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="http://unpkg.com/turbolinks"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -108,6 +109,7 @@
     </div>
 
     <script src="{{ asset('js/jquery.js') }}"></script>
+
     <script>
         $(document).ready(function () {
             $.ajaxSetup({
@@ -237,7 +239,6 @@
 
     @stack('script')
 
-    <script src="http://unpkg.com/turbolinks"></script>
     
 </body>
 </html>
