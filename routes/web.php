@@ -17,9 +17,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', 'ArticleController@index');
+// Route::get('/', 'ArticleController@index');
 
-Route::resource('/articles', 'ArticleController');
 
 Route::post('/like', 'LikeController@like')->name('likes');
 Route::post('/dislike', 'LikeController@dislike')->name('dislikes');
@@ -33,7 +32,11 @@ Route::resource('/comments', 'CommentController');
 
 Route::get('/timeline/{user}/articles', 'UserController@index')->name('articles.timeline');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', 'ArticleController@index');
+
+    Route::resource('/articles', 'ArticleController');
+
     Route::get('/profiles/{user}', 'UserController@profile')->name('users.profile');
 
     Route::get('/profiles/{user}/edit', 'UserController@edit')->name('users.profile-edit');
