@@ -5,12 +5,20 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header text-center font-weight-bolder h5">{{ __('Login Form') }}</div>
 
                 <div class="card-body">
+                    <div class="form-group row">
+                        
+                        <div class="col-md-6 offset-md-4">
+                            <a href="{{ url('redirect/facebook') }}" class="btn btn-primary col-md-12 font-weight-bolder"><i class="fab fa-facebook-f pr-1"></i> Facebook Login</a>
+                        </div>
+                        <div class="col-md-6 offset-md-4">
+                            <h6 class="text-center mt-3 mb-0">OR</h6>
+                        </div>
+                    </div>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 

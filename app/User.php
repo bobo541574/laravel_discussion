@@ -40,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-    public function getphotoAttribute($value)
+    public function getPhotoAttribute($value)
     {
         return asset('storage/' . $value);
     }

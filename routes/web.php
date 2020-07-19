@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 /*
@@ -13,9 +14,15 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
+
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Facebook Login
+Route::get('/redirect/{provider}', 'SocialController@redirect');
+Route::get('/callback/{provider}', 'SocialController@callback');
 
 // Route::get('/', 'ArticleController@index');
 
@@ -32,7 +39,7 @@ Route::resource('/comments', 'CommentController');
 
 Route::get('/timeline/{user}/articles', 'UserController@index')->name('articles.timeline');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', 'ArticleController@index');
 
     Route::resource('/articles', 'ArticleController');
