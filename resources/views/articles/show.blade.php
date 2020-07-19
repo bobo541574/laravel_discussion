@@ -152,7 +152,7 @@
                     </div>
                     <ul class="list-group">
                         @foreach ($comment->replies as $reply)
-                            <p class="m-0">{{$loop->first ? "Replies" : ''}}</p>
+                            <p class="m-0 font-weight-bold"  style="font-size: 80%">{{$loop->first ? "Replies" : ''}}</p>
                             <li class="list-group-item" style="font-size: 80%">{{ $reply->content }}</li>
                         @endforeach
                     </ul>
