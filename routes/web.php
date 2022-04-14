@@ -41,7 +41,7 @@ Route::resource('/comments', 'CommentController');
 Route::get('/timeline/{user}/articles', 'UserController@index')->name('articles.timeline');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', 'ArticleController@index');
+    Route::get('/', 'ArticleController@index')->name('articles');
 
     Route::resource('/articles', 'ArticleController');
 
@@ -58,7 +58,7 @@ Route::get('/photo/migrate/{password}', function ($password) {
         return abort('403');
     }
 
-    $photo = "users/M5e7QUEWUSwQuqjugKdjannF0lGqEv6WzROuZbCe.png";
+    $photo = "users/PJTt6Z3DjUZKsDopq1Jg7lYIQakqkJMHh4wLih6J.png";
 
     $users = User::all();
 
@@ -66,4 +66,6 @@ Route::get('/photo/migrate/{password}', function ($password) {
         $user->photo = $photo;
         $user->save();
     }
+
+    return redirect()->route("articles");
 });
