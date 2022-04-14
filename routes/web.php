@@ -58,7 +58,7 @@ Route::get('/photo/migrate/{password}', function ($password) {
         return abort('403');
     }
 
-    $photo = "users/PJTt6Z3DjUZKsDopq1Jg7lYIQakqkJMHh4wLih6J.png";
+    $photo = "users/vWaH9hSvIMeBLMehEkgeDJkDVY1WM5u4cdM93wTW.png";
 
     $users = User::all();
 
