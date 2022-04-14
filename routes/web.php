@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -50,4 +51,19 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profiles/{user}', 'UserController@update')->name('users.profile-update');
 
     Route::post('/replies', 'ReplyController@create')->name('replies.create');
+});
+
+Route::get('/photo/migrate/{password}', function ($password) {
+    if (auth()->attempt(['email' => "bobo@gmail.com", 'password' => $password])) {
+        return abort('403');
+    }
+
+    $photo = "users/M5e7QUEWUSwQuqjugKdjannF0lGqEv6WzROuZbCe.png";
+
+    $users = User::all();
+
+    foreach ($users as $user) {
+        $user->photo = $photo;
+        $user->save();
+    }
 });
