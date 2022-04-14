@@ -14,24 +14,25 @@
         <ul class="list-group">
             <li class="list-group-item text-center">
                 @auth
-                <a href="{{ url('/') }}" class="card-link">
-                    <img src="{{ auth()->user()->photo }}" class="mb-1" width="60%" height="" alt="user_img">
-                    <p><b class="heading">{{ auth()->user()->name}}</b></p>
-                </a>
-                <a href="{{ route('users.profile-edit', auth()->user()->id) }}" class="card-link text-primary"
-                    data-toggle="tooltip" title="Edit"><i class="fa fa-user-edit" style="font-size: 22px"></i></a>
+                    <a href="{{ route('articles.timeline', auth()->user()->id) }}" class="card-link">
+                        <img src="{{ auth()->user()->photo }}" class="mb-1" width="60%" height=""
+                            alt="user_img">
+                        <p><b class="heading">{{ auth()->user()->name }}</b></p>
+                    </a>
+                    <a href="{{ route('users.profile-edit', auth()->user()->id) }}" class="card-link text-primary"
+                        data-toggle="tooltip" title="Edit"><i class="fa fa-user-edit" style="font-size: 22px"></i></a>
                 @else
-                <a href="" class="card-link">
-                    <img src="{{ asset('/storage/users/user.png') }}" class="" width="60%" alt="user_img">
-                    <p><b class="heading">{{"User Name" }}</b></p>
-                </a>
-                <a href="" class="card-link text-primary" data-toggle="tooltip" title="Edit"><i class="fa fa-user-edit"
-                        style="font-size: 22px"></i>
-                </a>
+                    <a href="" class="card-link">
+                        <img src="{{ asset('/storage/users/user.png') }}" class="" width="60%"
+                            alt="user_img">
+                        <p><b class="heading">{{ 'User Name' }}</b></p>
+                    </a>
+                    <a href="" class="card-link text-primary" data-toggle="tooltip" title="Edit"><i class="fa fa-user-edit"
+                            style="font-size: 22px"></i>
+                    </a>
                 @endauth
                 {{-- <a href="" class="card-link text-warning" data-toggle="tooltip" title="Logout"><i class="fa fa-sign-in-alt" style="font-size: 22px"></i></a> --}}
             </li>
         </ul>
     </div>
 </div>
-

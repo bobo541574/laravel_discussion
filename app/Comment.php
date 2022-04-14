@@ -13,6 +13,7 @@ class Comment extends Model
     {
         return Auth::check() ? $this->user_id == auth()->user()->id : '';
     }
+
     public function getBodyAttribute()
     {
         if (mb_detect_encoding($this->content) == 'UTF-8') {

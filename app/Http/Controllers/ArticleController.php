@@ -15,14 +15,15 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        // $client_info = file_get_contents('https://get.geojs.io/v1/dns/ptr.json');
-        // dd(json_decode($client_info));
-        if (request()->query('category')) {
-            $articles = Article::where('category_id', request()->query('category'))->latest()->paginate(5);
-        } else {
-            $articles = Article::latest()->paginate(5)->onEachSide(1);
-        }
-        $categories = Category::all();
+        $articles = Article::with(['user:id,name,photo', 'likes', 'comments:id,user_id,article_id', 'category'])
+            ->when(request()->query('category'), function ($query, $category) {
+                return $query->whereHas('category', function ($query) use ($category) {
+                    return $query->where('id', $category);
+                });
+            })
+            ->latest()->paginate(5)->onEachSide(1);
+
+        $categories = Category::get();
 
         return view('articles.index', ['articles' => $articles, 'categories' => $categories]);
     }

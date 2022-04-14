@@ -14,37 +14,46 @@ trait Likeable
 
     public function getlikeCountAttribute()
     {
-        return $this->likes()->where('liked', true)->count() > 0 ? $this->likes()->where('liked', true)->count() : '';
+        return $this->likes()->where('liked', true)->count() ?: '';
     }
 
-    public function liker($likeable, $user_id, $liked)
+    public function liker($user_id, $liked)
     {
+        $liker = $this->likes()->where('user_id', $user_id)->first();
+
         if ($this->likeCheck) {
-            $dislike = $this->find($likeable->id)
-                ->likes()->where(['likeable_id' => $likeable->id, 'user_id' => $user_id, 'liked' => true])
-                ->first();
-            $dislike->liked = $liked;
-            $dislike->save();
 
-            return $dislike;
-        } else if ($this->dislikeCheck) {
-            $like = $this->find($likeable->id)
-                ->likes()->where(['likeable_id' => $likeable->id, 'user_id' => $user_id, 'liked' => false])
-                ->first();
+            return $this->change($liker, $liked);
+        } elseif ($this->dislikeCheck) {
+
+            return $this->change($liker, $liked);
+        } else {
+
+            $like = new Like();
+            $like->user_id = $user_id;
+            $like->likeable_id = $this->id;
             $like->liked = $liked;
-            $like->save();
 
-            return $like;
+            return [
+                "status"    => 201,
+                "data"      => $this->likes()->save($like),
+            ];
         }
+    }
 
-        $like = new Like();
-        $like->user_id = $user_id;
-        $like->likeable_id = $likeable->id;
-        $like->liked = $liked;
-        $likeable->likes()->save($like);
-        // $like->save();
+    protected function change($liker, $liked)
+    {
+        if ($liked == $liker->liked)
+            return [
+                "status"    => 200,
+                "data"      => $liker->delete(),
+            ];
 
-        return $like;
+        $liker->liked = $liked;
+        return [
+            "status"    => 201,
+            "data"      => $liker->save(),
+        ];
     }
 
     /* End - likes */
@@ -57,7 +66,7 @@ trait Likeable
 
     public function getdislikeCountAttribute()
     {
-        return $this->likes()->where('liked', false)->count() > 0 ? $this->likes()->where('liked', false)->count() : '';
+        return $this->likes()->where('liked', false)->count() ?: '';
     }
     /* End - unlikes */
 }

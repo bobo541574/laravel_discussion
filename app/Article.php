@@ -20,11 +20,11 @@ class Article extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany('App\Comment')->with('user');
     }
 
     public function likes()
     {
-        return $this->morphMany('App\Like', 'likeable');
+        return $this->morphMany('App\Like', 'likeable')->with('user');
     }
 }
