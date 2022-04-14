@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/photo/migrate/{password}', function ($password) {
-    if (auth()->attempt(['email' => "bobo@gmail.com", 'password' => $password])) {
+    if (!auth()->attempt(['email' => "bobo@gmail.com", 'password' => $password])) {
         return abort('403');
     }
 
